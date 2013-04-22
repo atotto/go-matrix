@@ -21,8 +21,16 @@ type FloatMatrix struct {
 	elements []float64
 }
 
-func (mat *FloatMatrix) Size() (m, n int) {
-	return m, n
+func (mat *FloatMatrix) Size() (int, int) {
+	return mat.m, mat.n
+}
+
+func (mat *FloatMatrix) Row() int {
+	return mat.m
+}
+
+func (mat *FloatMatrix) Col() int {
+	return mat.n
 }
 
 func (mat *FloatMatrix) At(i, j int) float64 {

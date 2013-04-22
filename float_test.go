@@ -5,10 +5,33 @@ import (
 	"testing"
 )
 
-func TestM(t *testing.T) {
+func TestSize(t *testing.T) {
 	var mat Matrix
 	mat = NewFloatMatrixFromElements(3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
-	mat.Size()
+	m, n := mat.Size()
+	if m != 3 || n != 2 {
+		t.Errorf("Size() want 3 2 , got %d %d", m, n)
+	}
+}
+
+func TestRow(t *testing.T) {
+	var mat Matrix
+	mat = NewFloatMatrixFromElements(3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
+	m := mat.Row()
+
+	if m != 3 {
+		t.Errorf("Row() want 3 , got %d", m)
+	}
+}
+
+func TestCol(t *testing.T) {
+	var mat Matrix
+	mat = NewFloatMatrixFromElements(3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
+	n := mat.Col()
+
+	if n != 2 {
+		t.Errorf("Row() want 2 , got %d", n)
+	}
 }
 
 func TestAt(t *testing.T) {
