@@ -1,4 +1,3 @@
-go.matrix
-=========
+# matrix
 
-Package matrix for golang
+Package matrix provides matrix operations
