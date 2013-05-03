@@ -3,6 +3,7 @@ package matrix
 import (
 	"bytes"
 	"fmt"
+	"image"
 )
 
 // New return a new FloatMatrix with the given size
@@ -64,4 +65,15 @@ func (mat *FloatMatrix) String() string {
 
 func (mat *FloatMatrix) Elem() []float64 {
 	return mat.elements
+}
+
+func (mat *FloatMatrix) Find(num float64, p chan image.Point) {
+	for i := 0; i < mat.m; i++ {
+		for j := 0; j < mat.n; j++ {
+			if mat.At(i, j) == num {
+				p <- image.Point{i, j}
+			}
+		}
+	}
+	return
 }

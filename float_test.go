@@ -2,6 +2,7 @@ package matrix_test
 
 import (
 	. "."
+	"image"
 	"testing"
 )
 
@@ -57,5 +58,24 @@ func TestNew(t *testing.T) {
 
 	if len(elem) != 12*34 {
 		t.Errorf("length of the elements want %v, got %v", 12*34, len(elem))
+	}
+}
+
+func TestFind(t *testing.T) {
+	mat := NewFloatMatrixFromElements(3, 3, []float64{1, 2, 3, 4, 5, 6, 7, 8, 9})
+
+	p := make(chan image.Point)
+	var pt image.Point
+
+	go func() {
+		for {
+			pt = <-p
+		}
+	}()
+
+	mat.Find(8, p)
+
+	if pt.X != 2 || pt.Y != 1 {
+		t.Errorf("element i,j want 2,1, got %d,%d", pt.X, pt.Y)
 	}
 }
