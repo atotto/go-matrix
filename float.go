@@ -92,3 +92,14 @@ func (a *FloatMatrix) Eq(b *FloatMatrix) bool {
 	}
 	return true
 }
+
+func (mat *FloatMatrix) Transpose() *FloatMatrix {
+	out := NewFloatMatrix(mat.n, mat.m)
+
+	for i := 0; i < mat.m; i++ {
+		for j := 0; j < mat.n; j++ {
+			out.Set(j, i, mat.At(i, j))
+		}
+	}
+	return out
+}

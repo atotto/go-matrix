@@ -112,5 +112,25 @@ func TestEq(t *testing.T) {
 			t.Errorf("Eq want %t, got %t\na mat is:\n%s\nb mat is:\n%s", test.expect, out, test.a.String(), test.b.String())
 		}
 	}
+}
 
+func TestTranspose(t *testing.T) {
+	type transposeTest struct {
+		mat    *FloatMatrix
+		expect *FloatMatrix
+	}
+
+	var transposeTests = []transposeTest{
+		transposeTest{
+			NewFloatMatrixFromElements(3, 2, []float64{1, 2, 3, 4, 5, 6}),
+			NewFloatMatrixFromElements(2, 3, []float64{1, 3, 5, 2, 4, 6}),
+		},
+	}
+
+	for _, test := range transposeTests {
+		out := test.mat.Transpose()
+		if !out.Eq(test.expect) {
+			t.Errorf("Transpose want:\n%s\ngot:\n%s", test.expect.String(), out.String())
+		}
+	}
 }
