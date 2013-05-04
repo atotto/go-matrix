@@ -77,3 +77,18 @@ func (mat *FloatMatrix) Find(num float64, p chan image.Point) {
 	}
 	return
 }
+
+func (a *FloatMatrix) Eq(b *FloatMatrix) bool {
+	if a.m != b.m || a.n != b.n {
+		return false
+	}
+
+	for i := 0; i < a.m; i++ {
+		for j := 0; j < a.n; j++ {
+			if a.At(i, j) != b.At(i, j) {
+				return false
+			}
+		}
+	}
+	return true
+}
