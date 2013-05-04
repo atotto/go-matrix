@@ -1,7 +1,6 @@
-package matrix_test
+package matrix
 
 import (
-	. "."
 	"testing"
 )
 
