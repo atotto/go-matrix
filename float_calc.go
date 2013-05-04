@@ -1,8 +1,12 @@
 package matrix
 
+import (
+	"fmt"
+)
+
 func (matA *FloatMatrix) Mul(matB *FloatMatrix) *FloatMatrix {
 	if matA.n != matB.m {
-		panic("The left matrix must be the same as the number of rows of the right matrix")
+		panic(fmt.Sprintf("The left matrix (%dx%d) must be the same as the number of rows of the right matrix (%dx%d)", matA.m, matA.n, matB.m, matB.n))
 	}
 
 	out := NewFloatMatrix(matA.m, matB.n)
