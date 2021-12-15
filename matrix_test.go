@@ -6,7 +6,7 @@ import (
 )
 
 func TestSize(t *testing.T) {
-	mat := NewFloatMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
+	mat := NewMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
 	m, n := mat.Size()
 	if m != 3 || n != 2 {
 		t.Errorf("Size() want 3 2 , got %d %d", m, n)
@@ -14,7 +14,7 @@ func TestSize(t *testing.T) {
 }
 
 func TestRow(t *testing.T) {
-	mat := NewFloatMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
+	mat := NewMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
 	m := mat.Row()
 
 	if m != 3 {
@@ -23,7 +23,7 @@ func TestRow(t *testing.T) {
 }
 
 func TestCol(t *testing.T) {
-	mat := NewFloatMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
+	mat := NewMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
 	n := mat.Col()
 
 	if n != 2 {
@@ -32,7 +32,7 @@ func TestCol(t *testing.T) {
 }
 
 func TestAt(t *testing.T) {
-	mat := NewFloatMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
+	mat := NewMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
 	out := mat.At(1, 1)
 	if out != 1.3 {
 		t.Errorf("mat.At(1.1) want 1.3, got %v", out)
@@ -40,7 +40,7 @@ func TestAt(t *testing.T) {
 }
 
 func TestSet(t *testing.T) {
-	mat := NewFloatMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
+	mat := NewMatrixFromElements[float64](3, 2, []float64{1.2, 2.3, 4.5, 1.3, 4.4, 6.1})
 	mat.Set(1, 1, 11.4)
 	out := mat.At(1, 1)
 	if out != 11.4 {
@@ -49,7 +49,7 @@ func TestSet(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	mat := NewFloatMatrix[float64](12, 34)
+	mat := NewMatrix[float64](12, 34)
 	elem := mat.Elem()
 
 	if len(elem) != 12*34 {
@@ -58,7 +58,7 @@ func TestNew(t *testing.T) {
 }
 
 func TestFind(t *testing.T) {
-	mat := NewFloatMatrixFromElements[float64](3, 3, []float64{1, 2, 3, 4, 5, 6, 7, 8, 9})
+	mat := NewMatrixFromElements[float64](3, 3, []float64{1, 2, 3, 4, 5, 6, 7, 8, 9})
 
 	p := make(chan image.Point)
 	var pt image.Point
@@ -78,27 +78,27 @@ func TestFind(t *testing.T) {
 
 func TestEq(t *testing.T) {
 	type eqTest struct {
-		a      *FloatMatrix[float64]
-		b      *FloatMatrix[float64]
+		a      *Matrix[float64]
+		b      *Matrix[float64]
 		expect bool
 	}
 
 	var eqTests = []eqTest{
 		eqTest{
-			NewFloatMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
-			NewFloatMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
+			NewMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
+			NewMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
 			true},
 		eqTest{
-			NewFloatMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
-			NewFloatMatrixFromElements[float64](3, 2, []float64{1, 3, 3, 4, 5, 6}),
+			NewMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
+			NewMatrixFromElements[float64](3, 2, []float64{1, 3, 3, 4, 5, 6}),
 			false},
 		eqTest{
-			NewFloatMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
-			NewFloatMatrixFromElements[float64](2, 3, []float64{1, 2, 3, 4, 5, 6}),
+			NewMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
+			NewMatrixFromElements[float64](2, 3, []float64{1, 2, 3, 4, 5, 6}),
 			false},
 		eqTest{
-			NewFloatMatrixFromElements[float64](1, 2, []float64{1, 2}),
-			NewFloatMatrixFromElements[float64](1, 3, []float64{1, 2, 3}),
+			NewMatrixFromElements[float64](1, 2, []float64{1, 2}),
+			NewMatrixFromElements[float64](1, 3, []float64{1, 2, 3}),
 			false},
 	}
 
@@ -112,14 +112,14 @@ func TestEq(t *testing.T) {
 
 func TestTranspose(t *testing.T) {
 	type transposeTest struct {
-		mat    *FloatMatrix[float64]
-		expect *FloatMatrix[float64]
+		mat    *Matrix[float64]
+		expect *Matrix[float64]
 	}
 
 	var transposeTests = []transposeTest{
 		transposeTest{
-			NewFloatMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
-			NewFloatMatrixFromElements[float64](2, 3, []float64{1, 3, 5, 2, 4, 6}),
+			NewMatrixFromElements[float64](3, 2, []float64{1, 2, 3, 4, 5, 6}),
+			NewMatrixFromElements[float64](2, 3, []float64{1, 3, 5, 2, 4, 6}),
 		},
 	}
 
