@@ -7,21 +7,21 @@ import (
 func TestMul(t *testing.T) {
 
 	type mulTest struct {
-		a      *FloatMatrix
-		b      *FloatMatrix
-		expect *FloatMatrix
+		a      *FloatMatrix[float64]
+		b      *FloatMatrix[float64]
+		expect *FloatMatrix[float64]
 	}
 
 	var mulTests = []mulTest{
 		mulTest{
-			NewFloatMatrixFromElements(1, 3, []float64{1, 2, 3}),
-			NewFloatMatrixFromElements(3, 1, []float64{1, 2, 3}),
-			NewFloatMatrixFromElements(1, 1, []float64{14}),
+			NewFloatMatrixFromElements[float64](1, 3, []float64{1, 2, 3}),
+			NewFloatMatrixFromElements[float64](3, 1, []float64{1, 2, 3}),
+			NewFloatMatrixFromElements[float64](1, 1, []float64{14}),
 		},
 		mulTest{
-			NewFloatMatrixFromElements(3, 1, []float64{1, 2, 3}),
-			NewFloatMatrixFromElements(1, 3, []float64{1, 2, 3}),
-			NewFloatMatrixFromElements(3, 3, []float64{1, 2, 3, 2, 4, 6, 3, 6, 9}),
+			NewFloatMatrixFromElements[float64](3, 1, []float64{1, 2, 3}),
+			NewFloatMatrixFromElements[float64](1, 3, []float64{1, 2, 3}),
+			NewFloatMatrixFromElements[float64](3, 3, []float64{1, 2, 3, 2, 4, 6, 3, 6, 9}),
 		},
 	}
 
